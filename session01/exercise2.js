@@ -9,8 +9,8 @@ function baitap1() {
     return result;
   }
 
-  console.log(factorial(5));
-  console.log(factorial(8));
+  console.log("Giai thừa của 5 là ", factorial(5));
+  console.log("Giai thừa của 8 là ", factorial(8));
 }
 
 //Bai tap 2
@@ -26,7 +26,7 @@ function baitap2() {
   }
 
   for (let i = 0; i < 10; i++) {
-    console.log(getRandomInt(1, 10));
+    console.log("Giá trị ngẫu nhiên từ 1 đến 10: ", getRandomInt(1, 10));
   }
 }
 
@@ -51,8 +51,10 @@ function baitap3() {
     return randomElement;
   }
 
+  console.log("Mảng: ", randomArray);
+
   for (let i = 0; i < 10; i++) {
-    console.log(getRandomElement(randomArray));
+    console.log("Giá trị ngẫu nhiên trong một mảng: ", getRandomElement(randomArray));
   }
 }
 
@@ -62,5 +64,10 @@ function baitap4() {
   var second = [7, 2, 5, 4, 6, 5, 3, 5, 3];
 
   var difference = second.filter(x => first.indexOf(x) === -1);
-  console.log(difference);
+  console.log("Các phần tử khác biệt: ", difference);
 }
+
+baitap1();
+baitap2();
+baitap3();
+baitap4();
