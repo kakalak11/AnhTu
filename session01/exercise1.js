@@ -11,9 +11,9 @@ function baitap1() {
     return num;
   }
 
-  console.log(formatNumber(number));
-  console.log(formatNumber(number1));
-  console.log(formatNumber(number2));
+  console.log("Format số của 10000000: ", formatNumber(number));
+  console.log("Format số của 123456: ", formatNumber(number1));
+  console.log("Format số của 12000.02: ", formatNumber(number2));
 }
 
 //Bai tap 2
@@ -30,11 +30,11 @@ function baitap2() {
     return number;
   }
 
-  console.log(shortenNumber(1000000000));
-  console.log(shortenNumber(100000));
-  console.log(shortenNumber(1000));
-  console.log(shortenNumber(1123400000));
-  console.log(shortenNumber(1342222));
+  console.log("Giá trị rút gọn của 1000000000: ", shortenNumber(1000000000));
+  console.log("Giá trị rút gọn của 100000: ", shortenNumber(100000));
+  console.log("Giá trị rút gọn của 1000: ", shortenNumber(1000));
+  console.log("Giá trị rút gọn của 1123400000: ", shortenNumber(1123400000));
+  console.log("Giá trị rút gọn của 1342222: ", shortenNumber(1342222));
 }
 
 //Bai tap 3
@@ -54,8 +54,8 @@ function baitap3() {
     return wordCount;
   }
 
-  console.log("The number of word is: ", countWord(string));
-  console.log("The number of word is: ", countWord(string1));
+  console.log("The number of word in oneTwoThree is: ", countWord(string));
+  console.log("The number of word in aQuickBrownFox is: ", countWord(string1));
 }
 //Bai tap 4
 
@@ -68,5 +68,11 @@ function baitap4() {
 
   let file = "image.png";
 
-  console.log(extension(file));
+  console.log("Định dạng của image.png là: ", extension(file));
+  console.log("Định dạng của sound.mp3 là: ", extension("sound.mp3"));
 }
+
+baitap1();
+baitap2();
+baitap3();
+baitap4();
