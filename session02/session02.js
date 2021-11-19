@@ -1,28 +1,48 @@
-const container_box_width = "500px";
-const container_box_height = "450px";
-const bgColor = "white";
-const matchArray = [];
-
-let letterArray = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K', 'A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'K'];
-let randomizedArray = shuffle(letterArray);
-
-
-// const colorArray = ["red", "green", "blue", "purple", "orange", "pink", "yellow"]
+const images = [
+    "url(./images/circle.png)",
+    "url(./images/diamond.png)",
+    "url(./images/halfsquare.png)",
+    "url(./images/heart.png)",
+    "url(./images/rectangle.png)",
+    "url(./images/shape.png)",
+    "url(./images/sixstar.png)",
+    "url(./images/square.png)",
+    "url(./images/star.png)",
+    "url(./images/triangle.png)",
+    "url(./images/triangle.png)",
+    "url(./images/circle.png)",
+    "url(./images/diamond.png)",
+    "url(./images/halfsquare.png)",
+    "url(./images/heart.png)",
+    "url(./images/rectangle.png)",
+    "url(./images/shape.png)",
+    "url(./images/sixstar.png)",
+    "url(./images/square.png)",
+    "url(./images/star.png)",
+];
 
 var containerBox = document.createElement("div");
 document.body.appendChild(containerBox);
-containerBox.style.width = container_box_width;
+containerBox.style.width = "500px";
 containerBox.style.height = "auto";
-containerBox.style.backgroundColor = bgColor;
+containerBox.style.backgroundColor = "black";
 containerBox.style.position = "absolute";
 containerBox.style.display = "flex";
 containerBox.style.flexWrap = "wrap";
 
-// const box_width_number;
-// const box_height_number;
+const ranImages = shuffle(images);
+const numbers = [];
+const cards = [];
 
-// const box_width;
-// const box_height;
+let checkCards = [];
+let temp = [];
+var coin = 500;
+
+//Create an array holds all the cards
+for (let i = 0; i < 20; i++) {
+    var card = document.createElement("div")
+    cards.push(card);
+}
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
@@ -42,62 +62,110 @@ function shuffle(array) {
     return array;
 }
 
-const createBox = function (number, letter) {
-    this.letter = letter;
-    this.number = number;
-    var box = document.createElement("div");
-    containerBox.appendChild(box);
-    box.style.width = "80px";
-    box.style.height = "80px";
-    box.style.backgroundColor = "black";
-    box.style.margin = "10px";
-
-    var numLabel = document.createElement("div");
-    box.appendChild(numLabel);
-    numLabel.style.position = "relative";
-    numLabel.style.top = "25px";
-    numLabel.style.textAlign = "center";
-    numLabel.innerHTML = String(this.number);
-    numLabel.style.fontSize = "30px";
-    numLabel.style.cursor = "pointer";
-    numLabel.style.color = "white";
-
-    box.addEventListener("click", function () {
-        box.style.backgroundColor = bgColor;
-        // box.style.backgroundImage =
-        numLabel.innerHTML = letter;
-        numLabel.style.color = "black";
-        console.log("click");
-        console.log(letter);
-
-        checkMatch(letter);
-    });
-
-    // console.log("box " + this.number + " is created !!!");
-
-    // box.addEventListener('mouseup', function () {
-    //     console.log("mouse up");
-    //     numLabel.innerHTML = String(number);
-    //     box.style.backgroundColor = "grey";
-    // })
+function mouseClick(id) {
+    // console.log("mouse clicked on the card ", id);
+    numbers[id].innerHTML = "";
+    return true;
 }
 
-for (let i = 1; i <= 20; i++) {
-    let letter = randomizedArray[i - 1];
-    createBox(i, letter);
+function checkCard() {
+    if (checkCards[0] === checkCards[1]) {
+        checkCards = [];
+        return true;
+    }
+    else {
+        checkCards = [];
+        return false;
+    }
+
 }
 
-function checkMatch(letter) {
-    matchArray.push(letter);
-    if (matchArray.length === 2) {
-        if (matchArray[0] === matchArray[1]) {
-            console.log("Match !!!");
-            return true;
+function createNumberElement(number, index) {
+    number.style.top = "25px";
+    number.style.textAlign = "center";
+    number.innerHTML = String(index + 1);
+    number.style.fontSize = "30px";
+    number.style.cursor = "pointer";
+
+}
+
+
+function displayCard(index) {
+    cards[index].style.width = "80px";
+    cards[index].style.height = "80px";
+    cards[index].style.backgroundColor = "red";
+    cards[index].style.margin = "10px";
+    if (index === 19) {
+        console.log("card displayed !");
+    }
+}
+
+function showCard(index) {
+    cards[index].style.backgroundImage = ranImages[index];
+}
+
+function coinCheck(check) {
+    console.log("coin check");
+
+    if (!gameOver(coin)) {
+        if (check) {
+            coin += 1000;
         }
         else {
-            console.log("Not match...");
-            return false
+            coin -= 500;
         }
+        console.log(coin);
+        gameOver(coin);
     }
-    console.log(matchArray);
+
 }
+
+function gameStart() {
+    running = true;
+    for (let cardIndex = 0; cardIndex < 20; cardIndex++) {
+        containerBox.appendChild(cards[cardIndex]);
+        var number = document.createElement("div");
+        cards[cardIndex].appendChild(number);
+        numbers.push(number);
+        createNumberElement(numbers[cardIndex], cardIndex);
+        displayCard(cardIndex);
+
+        cards[cardIndex].addEventListener("click", function () {
+            if (mouseClick(cardIndex)) {
+                showCard(cardIndex);
+                checkCards.push(ranImages[cardIndex]);
+                temp.push(cardIndex);
+
+                if (checkCards.length == 2) {
+                    if (checkCard(cardIndex) && temp[0] !== temp[1]) {
+                        console.log("card matched");
+                        temp = [];
+                        coinCheck(true);
+                    }
+                    else {
+                        setTimeout(function () {
+                            cards[temp[0]].style.backgroundImage = "none";
+                            cards[temp[1]].style.backgroundImage = "none";
+                            createNumberElement(numbers[temp[0]], temp[0]);
+                            createNumberElement(numbers[temp[1]], temp[1]);
+                            coinCheck(false);
+                            temp = [];
+                        }, 1000);
+                    }
+                }
+            }
+        });
+
+    }
+}
+
+function gameOver(coin) {
+    if (coin < 0) {
+        console.log("game over");
+        return true;
+    }
+    return false;
+}
+
+gameStart();
+
