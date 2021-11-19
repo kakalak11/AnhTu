@@ -30,19 +30,22 @@ containerBox.style.position = "absolute";
 containerBox.style.display = "flex";
 containerBox.style.flexWrap = "wrap";
 
+
 const ranImages = shuffle(images);
 const numbers = [];
 const cards = [];
 
 let checkCards = [];
 let temp = [];
-var coin = 500;
+var coin = 1000;
 
 //Create an array holds all the cards
 for (let i = 0; i < 20; i++) {
     var card = document.createElement("div")
     cards.push(card);
 }
+
+
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
@@ -120,8 +123,17 @@ function coinCheck(check) {
 
 }
 
+function updateCoin() {
+    var text = document.createElement("div");
+    document.body.appendChild(text);
+    text.style.position = "absolute";
+    text.style.top = " 550px";
+    text.innerHTML = "Coin: " + coin;
+}
+
 function gameStart() {
     running = true;
+    updateCoin();
     for (let cardIndex = 0; cardIndex < 20; cardIndex++) {
         containerBox.appendChild(cards[cardIndex]);
         var number = document.createElement("div");
@@ -141,6 +153,7 @@ function gameStart() {
                         console.log("card matched");
                         temp = [];
                         coinCheck(true);
+                        updateCoin();
                     }
                     else {
                         setTimeout(function () {
@@ -151,6 +164,7 @@ function gameStart() {
                             coinCheck(false);
                             temp = [];
                         }, 1000);
+                        updateCoin();
                     }
                 }
             }
@@ -162,10 +176,15 @@ function gameStart() {
 function gameOver(coin) {
     if (coin < 0) {
         console.log("game over");
+        var text = document.createElement("div");
+        document.body.appendChild(text);
+        text.style.position = "absolute";
+        text.style.top = " 550px";
+        text.innerHTML = "Game Over !";
+        text.style.backgroundColor = "white";
         return true;
     }
     return false;
 }
 
 gameStart();
-
